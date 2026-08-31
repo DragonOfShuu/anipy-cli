@@ -83,7 +83,11 @@ class AniDBAppProvider(BaseProvider):
         results: list[ProviderSearchResult] = []
 
         for p in range(2 if pages > 1 else 1, pages + 1):
-            anime = current_page.find("div", attrs={"class": "anime-grid"}).findAll(
+            anime_grid = current_page.find("div", attrs={"class": "anime-grid"})
+            if not anime_grid:
+                continue
+
+            anime = anime_grid.findAll(
                 "a", attrs={"class": "anime-card"}
             )
 
